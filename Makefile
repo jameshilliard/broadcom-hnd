@@ -8,87 +8,55 @@
 include $(TOPDIR)/rules.mk
 include $(INCLUDE_DIR)/kernel.mk
 
-PKG_NAME:=broadcom-wl
-PKG_VERSION:=5.10.56.27.3
-PKG_RELEASE:=6
+PKG_NAME:=broadcom-hnd
+PKG_VERSION:=0.6250
+PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)_$(ARCH).tar.bz2
-PKG_SOURCE_URL:=http://downloads.openwrt.org/sources
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_URL:=https://github.com/Lightsword1942/broadcom-hnd.git
 
-PKG_MD5SUM.mipsel:=3363e3a6b3d9d73c49dea870c7834eac
-PKG_MD5SUM.mips:=f8de63debc75333d6b4e28193eb051ff
-PKG_MD5SUM:=$(PKG_MD5SUM.$(ARCH))
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/broadcom-wl/Default
+define Package/broadcom-hnd/Default
   SECTION:=kernel
   CATEGORY:=Kernel modules
-  DEPENDS:=@PACKAGE_kmod-brcm-wl||PACKAGE_kmod-brcm-wl-mini
-  SUBMENU:=Proprietary BCM43xx WiFi driver
-  SUBMENUDEP:=@TARGET_brcm47xx||TARGET_brcm63xx
+  DEPENDS:=@PACKAGE_kmod-brcm-hnd
+  SUBMENU:=Proprietary BCM47xx HND driver set for Netgear r6250
+  SUBMENUDEP:=@TARGET_brcm53xx
 endef
 
-define KernelPackage/brcm-wl/Default
-  $(call Package/broadcom-wl/Default)
+define KernelPackage/brcm-hnd/Default
+  $(call Package/broadcom-hnd/Default)
   SECTION:=kernel
-  DEPENDS:=@TARGET_brcm47xx||TARGET_brcm63xx +wireless-tools
-  TITLE:=Kernel driver for BCM43xx chipsets
-  FILES:=$(PKG_BUILD_DIR)/driver$(1)/wl.ko $(PKG_BUILD_DIR)/glue/wl_glue.ko
+  DEPENDS:=@TARGET_brcm53xx||TARGET_brcm63xx +wireless-tools
+  TITLE:=Broadcom Device Specific Networking Packages
+  FILES:=$(PKG_BUILD_DIR)/driver$(1)/wl.ko
   AUTOLOAD:=$(call AutoLoad,30,wl_glue wl)
 endef
 
-define KernelPackage/brcm-wl/Default/description
+define KernelPackage/brcm-hnd/Default/description
  This package contains the proprietary wireless driver for the Broadcom 
- BCM43xx chipset.
+ BCM47xx chipset.
 endef
 
-define KernelPackage/brcm-wl
-$(call KernelPackage/brcm-wl/Default,)
+define KernelPackage/brcm-hnd
+$(call KernelPackage/brcm-hnd/Default,)
   TITLE+= (normal version)
 endef
 
-define KernelPackage/brcm-wl/description
-$(call KernelPackage/brcm-wl/Default/description)
+define KernelPackage/brcm-hnd/description
+$(call KernelPackage/brcm-hnd/Default/description)
 endef
 
-define KernelPackage/brcm-wl-mini
-$(call KernelPackage/brcm-wl/Default,-mini)
-  TITLE+= (Legacy version)
+define Package/hnd
+$(call Package/broadcom-hnd/Default)
+  TITLE:=Proprietary Broadcom hnd driver config utility
 endef
 
-define KernelPackage/brcm-wl-mini/description
-$(call KernelPackage/brcm-wl/Default/description)
-endef
-
-define Package/wlc
-$(call Package/broadcom-wl/Default)
-  TITLE:=wl driver setup utility
-endef
-
-define Package/wlc/description
- This package contains an utility for initializing the proprietary Broadcom 
- wl driver.
-endef
-
-define Package/wl
-$(call Package/broadcom-wl/Default)
-  TITLE:=Proprietary Broadcom wl driver config utility
-endef
-
-define Package/wl/description
- This package contains the proprietary utility (wl) for configuring the 
- proprietary Broadcom wl driver.
-endef
-
-define Package/nas
-$(call Package/broadcom-wl/Default)
-  TITLE:=Proprietary Broadcom WPA/WPA2 authenticator
-endef
-
-define Package/nas/description
- This package contains the proprietary WPA/WPA2 authenticator (nas) for the 
- proprietary Broadcom wl driver.
+define Package/hnd/description
+ This package contains the proprietary utility (hnd) for configuring the 
+ proprietary Broadcom hnd driver.
 endef
 
 MAKE_KMOD := $(MAKE) -C "$(LINUX_DIR)" \
@@ -168,8 +136,5 @@ define Package/nas/install
 	ln -sf nas $(1)/usr/sbin/nas4wds
 endef
 
-$(eval $(call KernelPackage,brcm-wl))
-$(eval $(call KernelPackage,brcm-wl-mini))
-$(eval $(call BuildPackage,wlc))
-$(eval $(call BuildPackage,wl))
-$(eval $(call BuildPackage,nas))
+$(eval $(call KernelPackage,brcm-hnd))
+$(eval $(call BuildPackage,hnd))
