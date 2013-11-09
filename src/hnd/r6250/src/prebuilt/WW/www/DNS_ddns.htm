@@ -1,0 +1,375 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<%11%>
+<title>NETGEAR Router <%12%></title> 
+<link rel="stylesheet" href="css/table.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<%13%>
+<script language="javascript" type="text/javascript">
+<!--
+  
+    $(document).ready(function()
+    {
+//        $('.scroll-pane').jScrollPane('scrollbarMargin:5px');
+        $("#target").submit(function() {
+            buttonFilter();
+        });
+
+    });
+
+
+    function setHelpIframeVisible(){
+        $('.help-frame-div').css("visibility","visible");
+    }
+
+
+    function showHelpIframe() {
+
+
+        var imgSrc=document.getElementById('help-button');
+
+        if(imgSrc.src.search("up")>=0)
+        {
+            $(".help-frame-div").show();
+            imgSrc.src="img/helparrowdown-icon.gif";
+        }
+        else
+        {
+            $(".help-frame-div").hide();
+            imgSrc.src="img/helparrowup-icon.gif";
+            setTimeout(setHelpIframeVisible,500);
+        }
+             change_size();
+
+    }
+    function moveToHTMLend()
+    {
+        window.location.href='#helpframe-anchor';
+        setHelpIframeVisible();
+    }
+
+
+    function loadhelp(fname,anchname)
+    {
+        var pane = window.frames["helpframe"].$('#content');
+        var imgSrc=document.getElementById('help-button');
+        if(imgSrc.src.search("up")<0)
+        {
+
+            $(".help-frame-div").show();
+            pane.jScrollPane({showArrows:true});
+
+            if ((loadhelp.arguments.length == 1 ) || (anchname == "" ))
+            {
+                window.frames["helpframe"].location.href=fname+"_h.htm";
+                $(".help-frame-div").show();
+            }
+            else
+            {
+                window.frames["helpframe"].location.href=fname+"_h.htm#" + anchname;
+                $(".help-frame-div").show();
+            }
+
+            $(".help-frame-div").show();
+            pane.jScrollPane({showArrows:true});
+        }
+    }
+
+function ShowResult() {
+    openDataSubWin('DNS_ddns_st.htm','alwaysRaised,dependent,resizable,scrollbars,width=450,height=150,left=200,top=200');
+}
+
+if(typeof(HTMLElement)!="undefined" && !window.opera) 
+{ 
+    HTMLElement.prototype.__defineGetter__("outerHTML",function() 
+    { 
+        var a=this.attributes, str="<"+this.tagName, i=0;for(;i<a.length;i++) 
+        if(a[i].specified) 
+            str+=" "+a[i].name+'="'+a[i].value+'"'; 
+        if(!this.canHaveChildren) 
+            return str+" />"; 
+        return str+">"+this.innerHTML+"</"+this.tagName+">"; 
+    }); 
+    HTMLElement.prototype.__defineSetter__("outerHTML",function(s) 
+    { 
+        var r = this.ownerDocument.createRange(); 
+        r.setStartBefore(this); 
+        var df = r.createContextualFragment(s); 
+        this.parentNode.replaceChild(df, this); 
+        return s; 
+    }); 
+    HTMLElement.prototype.__defineGetter__("canHaveChildren",function() 
+    { 
+        return !/^(area|base|basefont|col|frame|hr|img|br|input|isindex|link|meta|param)$/.test(this.tagName.toLowerCase()); 
+    }); 
+}
+
+var IsOraySpecific = false;
+var Is3322Specific = false;
+
+function chgDns()
+{
+    var cf =document.forms[0];
+    var currentProvider = cf.sysDNSProviderlist.value;
+    
+    if (currentProvider == 2)//www.ORAY.cn
+    {
+        var diableButton;
+        var hostname = document.getElementsByName("sysDNSHost");
+        var inputusername = document.getElementsByName("sysDNSUser");
+        var inputpassword = document.getElementsByName("sysDNSPassword");	
+        if(!IsOraySpecific)
+        {
+            inputusername[0].value = "";
+            inputpassword[0].value = "";
+        }
+        hostname[0].value = "";
+        inputusername[0].maxLength = 16;
+        inputpassword[0].maxLength = 16;
+        cf.sysDNSHost.disabled = true;
+        document.getElementById("3322_specific").style.display="none";
+        document.getElementById("oray_specific").style.display="block";
+        diableButton = document.getElementsByName("Button");
+        diableButton[0].outerHTML='<button  onClick="" type="button" name="Button" value=<%657%> class="button-grey" ><span class="roundleft_grey">&nbsp;&nbsp;  <%657%> </span><span class="roundright_grey">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>';
+        diableButton[0].style.cursor='default';
+    }
+    else
+    {
+        var enableButton;
+        var inputusername = document.getElementsByName("sysDNSUser");
+        var inputpassword = document.getElementsByName("sysDNSPassword");
+        if(IsOraySpecific)
+        {
+            inputusername[0].value = "";
+            inputpassword[0].value = "";
+        }
+        if(currentProvider == 1)
+            document.getElementById("3322_specific").style.display="block";
+        else
+            document.getElementById("3322_specific").style.display="none";
+        inputusername[0].maxLength = 60;
+        inputpassword[0].maxLength = 60;
+        cf.sysDNSHost.disabled = false;
+        document.getElementById("oray_specific").style.display="none";
+        enableButton = document.getElementsByName("Button");
+        enableButton[0].outerHTML='<button  onClick="buttonClick(this,\'<%657%>\');ShowResult()" type="button" name="Button" value=<%657%> class="button-rule" ><span class="roundleft_button">&nbsp;&nbsp;  <%657%> </span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>';
+        enableButton[0].style.cursor='default';
+    }
+}
+
+function checkData()
+{
+    var cf = document.forms[0];
+    var currentProvider = cf.sysDNSProviderlist.value;
+    var msg = "";
+    if(cf.sysDNSActive.checked)
+    {
+    if(currentProvider != 2)
+        msg+= checkBlank(cf.sysDNSHost, "<%658%>");
+    msg+= checkBlank(cf.sysDNSUser, "<%452%>");
+    msg+= checkBlank(cf.sysDNSPassword, "<%466%>");
+    }
+    
+    if(currentProvider == 2)
+    {
+        if (cf.sysDNSUser.value.match( /[^a-zA-Z0-9\_\-]/ ))
+        {      
+            alert("<%405%>");
+            return false;    
+        }
+    }
+    
+    if(currentProvider == 1)
+    {
+        if(cf.sysDNSUser.value.length < 3)
+        {
+            alert("<%659%>");
+            return false;    
+        }
+        if(cf.sysDNSUser.value.length > 30)
+        {      
+            alert("<%660%>");
+            return false;    
+        }
+        
+        if(cf.sysDNSPassword.value.length < 6)
+        {
+            alert("<%661%>");
+            return false;    
+        }
+        if(cf.sysDNSPassword.value.length > 30)
+        {      
+            alert("<%662%>");
+            return false;    
+        }
+        if (cf.sysDNSUser.value.match( /[^a-zA-Z0-9]/ ))
+        {      
+            alert("<%405%>");
+            return false;    
+        }
+    }
+    
+    if (cf.sysDNSHost.value.match( /[^\x20-\x7E]/ ))
+    {
+        alert("<%663%>");
+        return false;
+    }
+
+    if (cf.sysDNSUser.value.match( /[^\x20-\x7E]/ ))
+    {
+        alert("<%664%>");
+        return false;
+    }
+    
+    if (cf.sysDNSPassword.value.match( /[^\x20-\x7E]/ ))
+    {
+        alert("<%665%>");
+        return false;
+    }
+    
+    if (msg.length > 1)
+    {
+        alert(msg);
+        return false;
+    }
+    return true;
+}
+
+function loadSettings()
+{
+    var cf = document.forms[0];
+    var ddnsEnable = "<%666%>";
+    var ddnsServer = "<%667%>";
+    var ddnsWildCard = "<%668%>";
+    if (ddnsServer == "2")
+    IsOraySpecific = true;
+    else
+        IsOraySpecific = false;
+        
+    if (ddnsServer == "1")
+        Is3322Specific = true;
+    else
+        Is3322Specific = false;
+    
+    if (ddnsEnable == "1")
+        cf.sysDNSActive.checked = true;
+    else
+        cf.sysDNSActive.checked = false;
+    
+    if (ddnsWildCard == "1")
+        cf.sysDNSWildCard.checked = true;
+    else
+        cf.sysDNSWildCard.checked = false;
+}
+
+//-->
+</script> 
+</head>
+<body  onload="change_size();loadSettings();chgDns();" onUnload="closeWin(datSubWinVar);"  class="page-body"  onResize="change_size();" >
+<img class="cover-image" src="img/cover-image.gif">
+<img class="body-image" src="img/subhead2-background.jpg">
+<div id="full-page-container">
+
+<form id="target"  method="POST" action="ddns.cgi">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
+<img class="subtop-image" src="img/subhead2-top.gif">
+<div class="subhead2"> <%343%></div>
+<table border="0"    style="height:370px"  class="subhead2-table">
+
+<tr align="left" valign="middle">
+<td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
+&nbsp;&nbsp;&nbsp;<button value="<%58%>"  onClick="buttonClick(this,'<%58%>');return checkData()" type="SUBMIT" name="cfAlert_Apply" class="button-apply" > <span class="roundleft_apply" ><%59%>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<%60%>" onClick="buttonClick(this,'<%60%>');reset();loadSettings();" type="BUTTOn" name="Cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<%61%></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button  onClick="buttonClick(this,'<%657%>');ShowResult()" type="button" name="Button" value=<%657%> class="button-rule" ><span class="roundleft_button">&nbsp;&nbsp;  <%657%> </span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+</td>
+</tr>
+
+<tr><td class="scrollpane-table-seperate-border" colspan="2"><div class="scroll-pane" style="height:365px;width:620px;overflow:auto;scrolling:auto"><table style="border-collapse:collapse;width:97%">
+
+<tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
+<tr>
+    <td colspan="2">
+    <input type="checkbox" name="sysDNSActive" value="dnsEnable"> <a href="javascript:loadhelp('DNS_ddns','setup')" tabindex="-1"><b><%669%></b> </a> 
+    </td>
+</tr>
+<tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
+<tr>
+    <td width="50%" align="left" nowrap>
+    <a href="javascript:loadhelp('DNS_ddns','provider')" tabindex="-1"><b><%670%></b></a> 
+    </td>
+    <td width="50%" align="right">
+    <select name="sysDNSProviderlist" size="1" onchange="chgDns()"><%671%></select></td>
+</tr>
+<tr>
+    <td width="50%" align="left" nowrap><%658%></td>
+ <td width="50%" align="right"><input type="text" name="sysDNSHost" value = "<%672%>" size="32" maxlength="255"></td>
+</tr>
+<tr>
+    <td width="50%" align="left"><%452%></td>
+    <td width="50%" align="right"><input type="text" name="sysDNSUser" value = "<%673%>" size="32" maxlength="60"></td>
+</tr>
+<tr>
+    <td width="50%" align="left"><%466%></td>
+    <td width="50%" align="right"><input type="password" name="sysDNSPassword" value = "<%674%>" size="32" maxlength="60"></td>
+</tr>
+<tr><td colspan="2">
+<div id="3322_specific" style="display: block;">
+<input type="checkbox" name="sysDNSWildCard" value="wildEnable"><%675%></a> 
+<table cellpadding="0" cellspacing="3" width="100%">
+</table></div></td></tr>
+<tr><td colspan="2">
+<div id="oray_specific" style="display: block;">
+<table cellpadding="0" cellspacing="3" width="100%">
+        <tr class="basic-text">
+            <td width="75%" align="left" nowrap><b><%676%>:</b></td>
+            <td width="25%" align="left" ><%677%></td>
+        </tr>
+        <tr class="basic-text">
+            <td width="75%" align="left" nowrap><%555%>:</td>
+            <td width="25%" align="left" ><%678%></td>
+        </tr>
+        <tr class="basic-text">
+            <td width="75%" align="left" nowrap><%679%>:</td>
+            <td width="25%" align="left" ><%680%></td>
+        </tr>
+        <tr class="basic-text">
+            <td width="75%" align="left" nowrap" ><%681%>:</td>
+            <td width="25%" align="left" nowrap="nowrap"><a class="linktype" target="_blank" href="http://www.oray.cn/passport/register.php"><u><font color="#0000ff">http://www.oray.cn/passport/register.php</font></u></a></td></tr>
+        <tr><td width="75%" align="left" nowrap"></td>
+            <td width="25%" align="left" nowrap="nowrap"><a class="linktype" target="_blank" href="http://www.oray.cn/peanuthull/service.php"><u><font color="#0000ff">http://www.oray.cn/peanuthull/service.php</font></u></a></td></tr>
+        <tr><td width="75%" align="left" nowrap"></td>
+            <td width="25%" align="left" nowrap="nowrap"><a class="linktype" target="_blank" href="http://www.oray.cn/ask/"><u><font color="#0000ff">http://www.oray.cn/ask/</font></u></a></td></tr>
+</table></div></td></tr>
+
+<tr><td height="12" colspan="2"><div style="background-image: url(&quot;liteblue.gif&quot;); width: 100%;">&nbsp;</div></td></tr>
+
+</table></div></td></tr>
+<tr valign="middle" align="center"><td class="table-seperate-border" colspan="2" style="padding-left:0px"><div class="help-frame-div" > <iframe id="helpframe"  src="DNS_ddns_h.htm" class="help-iframe" scrolling="no" name="helpframe" frameborder="0" onload="showHelpIframe();"></iframe> </div> </td> </tr>
+</table>
+   <img class="subfooter-image" src="img/subhead2-bottom.gif">
+<div class="subhead2-bottom" >
+    <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.gif" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%224%> </span>
+    <span class="button-help-arrow">
+      <img src="img/helparrowdown-icon.gif" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <%225%> </span>
+      </div>
+
+
+
+<a name="helpframe-anchor"></a>
+</form>
+
+</div>
+</body>
+</html>
+

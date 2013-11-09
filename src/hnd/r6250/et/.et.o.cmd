@@ -1,0 +1,1 @@
+cmd_drivers/net/hnd/r6250/et/et.o := arm-openwrt-linux-uclibcgnueabi-ld -EL    -r -o drivers/net/hnd/r6250/et/et.o drivers/net/hnd/r6250/et/../src/et/sys/et_linux.o drivers/net/hnd/r6250/et/../src/et/sys/etc.o drivers/net/hnd/r6250/et/../src/et/sys/etc47xx.o drivers/net/hnd/r6250/et/../src/et/sys/etc_adm.o drivers/net/hnd/r6250/et/../src/et/sys/etcgmac.o 

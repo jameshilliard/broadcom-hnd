@@ -1,0 +1,1 @@
+cmd_drivers/net/hnd/r6250/proxyarp/proxyarp.o := arm-openwrt-linux-uclibcgnueabi-ld -EL    -r -o drivers/net/hnd/r6250/proxyarp/proxyarp.o drivers/net/hnd/r6250/proxyarp/../src/router/proxyarp/proxyarp.o 

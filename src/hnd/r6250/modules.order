@@ -1,0 +1,7 @@
+kernel/drivers/net/hnd/r6250/ctf/ctf.ko
+kernel/drivers/net/hnd/r6250/dpsta/dpsta.ko
+kernel/drivers/net/hnd/r6250/et/et.ko
+kernel/drivers/net/hnd/r6250/wl/wl.ko
+kernel/drivers/net/hnd/r6250/emf/emf.ko
+kernel/drivers/net/hnd/r6250/igs/igs.ko
+kernel/drivers/net/hnd/r6250/proxyarp/proxyarp.ko

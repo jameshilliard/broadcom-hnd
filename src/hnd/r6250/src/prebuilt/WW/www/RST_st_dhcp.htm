@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<%11%>
+<title>NETGEAR Router <%12%></title>
+<link rel="stylesheet" href="css/table.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<script language=JavaScript type="text/javascript">
+
+var t;
+
+    $(document).ready(function()
+    {	
+        $("#target").submit(function() {
+            window.clearTimeout(t);
+            buttonFilter();
+        });
+
+    });
+
+
+
+function Fresh() 
+{
+	var cf = document.forms[0];
+	if(cf.refreshScrn.value == "yes")
+		t = window.setTimeout("location.href='RST_st_dhcp.htm'",10000);
+// reload if not connected	
+}
+</script>
+</head>
+
+<body  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" text=black onLoad="Fresh()" style="margin:0px;background-color:#e5e5e5">
+
+<form id="target"  method="post" action="st_dhcp.cgi">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
+
+<TABLE border=0 width="100%">
+
+ 
+ <TR>
+ <TD colspan="2" align="left" nowrap><h1><%676%> </h1></TD>
+ </TR>
+ 
+</TABLE>
+
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+
+<tr> 
+ <td background="liteblue.gif" height="12"> &nbsp;</td>
+</tr>
+</table>
+
+
+<table width="100%" border=1 cellspacing=1 cellpadding=4>
+	<tr>
+		<TD NOWRAP width="50%"><B><%422%></B></td>
+        <%1106%>
+		<TD NOWRAP width="50%"><%249%></td>
+        <%1113%>
+        <%1114%>
+        <TD NOWRAP width="50%"><%1118%></td>
+        <%1117%>
+	</tr>
+	
+	<tr>
+		<TD NOWRAP><B><%477%></B></td>
+        <%1106%>
+		<TD NOWRAP><%250%></td>
+        <%1113%>
+        <%1114%>
+        <TD NOWRAP width="50%"><%1119%></td>
+        <%1117%>        
+	</tr>
+	<tr>
+		<TD NOWRAP><B><%1120%></B></td>
+        <%1106%>
+		<TD NOWRAP><%435%></td>
+        <%1113%>
+        <%1114%>
+        <TD NOWRAP width="50%"><%1121%></td>
+        <%1117%>           
+	</tr>
+	<tr>
+		<TD NOWRAP><B><%1122%></B></td>
+		<TD NOWRAP><%1123%></td>
+	</tr>
+	<tr>
+		<TD NOWRAP><B><%1124%></B></td>
+        <%1106%>
+                <TD NOWRAP><%1125%></td>
+        <%1113%>
+        <%1114%>
+        <TD NOWRAP width="50%"><%1126%><br><%1127%></td>
+        <%1117%>                   
+	</tr>
+	<tr>
+		<TD NOWRAP><B><%1128%></B></td>
+		<TD NOWRAP><%1129%></td>
+	</tr>
+	<tr>
+		<TD NOWRAP><B><%1130%></B></td>
+		<TD NOWRAP><%1131%></td>
+	</tr>
+</table>
+
+
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+ <TR>
+ <TD align="center" nowrap>
+	<BR>&nbsp;&nbsp;&nbsp;<button type="submit" value="<%1132%>" name="connect" class="button-rule" onclick="buttonClick(this,'<%1132%>');" ><span class="roundleft_button">&nbsp;&nbsp; <%1132%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+	&nbsp;&nbsp;&nbsp;<button type="submit" value="<%1133%>" name="connect" class="<%1134%>" onclick="buttonClick(this,'<%1133%>');" <%1135%>><span class="<%1136%>">&nbsp;&nbsp; <%1133%></span><span class="<%1137%>">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></TD>
+</TR>
+
+<tr> 
+ <td background="liteblue.gif" height="12"> &nbsp;</td>
+</tr>
+ <TR>
+ <TD align="center">&nbsp;&nbsp;&nbsp;<button type=button value="<%391%>" name="close" class="button-rule" onclick="buttonClick(this,'<%391%>');self.close();"><span class="roundleft_button">&nbsp;&nbsp; <%391%></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></TD>
+</TR>
+</TABLE>
+
+
+<input type="hidden" name="refreshScrn" value="yes">
+</form>
+
+</body>
+</html>
+
